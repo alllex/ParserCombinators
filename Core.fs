@@ -60,9 +60,9 @@ type ParserResult<'a> =
     | S of 'a * ParserInfo
     | F of ParserInfo
 
-type internal Parser<'a> = ParserInfo -> (ParserResult<'a>) seq
+type Parser<'a> = ParserInfo -> (ParserResult<'a>) seq
   
-let internal yield' x = seq { yield x }
+let yield' x = seq { yield x }
 
 /// Always returns a Success with x as result
 let value x : Parser<'a> =
