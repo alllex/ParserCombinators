@@ -72,7 +72,7 @@ let value x : Parser<'a> =
 let empty : Parser<'a> =
     fun _ -> Seq.empty
 
-/// Alwaus fails.
+/// Always fails.
 let fails (err : ParserError) : Parser<'a> =
     fun pi -> yield' <| F(pi.Stop(err))
 
@@ -93,7 +93,8 @@ let symf f : Parser<char> =
     fun pi -> 
         match pi.Rest with
         | c::nrest when f c -> yield' <| S(c, new ParserInfo(nrest, pi.Position.Update(c)))
-        | _ -> yield' <| F(pi.Stop(new ParserError ("Symf error")))
+        | c::_ -> yield' <| F(pi.Stop(new ParserError (sprintf "Symf error: character \'%c\' doesn't match to function" c)))
+        | [] -> yield' <| F(pi.Stop(new ParserError ("Symf error: empty string")))
 
 /// Runs the given parser against the given string.
 let run (p : Parser<'a>) (s : string) = 
