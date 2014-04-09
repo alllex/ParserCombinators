@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core.fs" />
-    <None Include="Script.fsx" />
     <Compile Include="Test.Core.fs" />
   </ItemGroup>
   <PropertyGroup>
